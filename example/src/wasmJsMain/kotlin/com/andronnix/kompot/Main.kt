@@ -10,7 +10,7 @@ private fun main() {
         // same as default - this is not necessary to add here. It's here to show this feature
         resourcePathMapping { path -> "./$path" }
     }
-    CanvasBasedWindow("JetSnack", canvasElementId = "jetsnackCanvas") {
+    CanvasBasedWindow("Kompot Sandbox", canvasElementId = "kompotCanvas") {
         MyHelloWorld()
     }
 }

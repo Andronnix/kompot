@@ -16,10 +16,10 @@ repositories {
 kotlin {
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
-        moduleName = "jetsnackwasmapp"
+        moduleName = "kompotsandbox"
         browser {
             commonWebpackConfig {
-                outputFileName = "jetsnackwasmapp.js"
+                outputFileName = "kompotsandbox.js"
                 devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
 
                     static = (static ?: mutableListOf()).apply {
