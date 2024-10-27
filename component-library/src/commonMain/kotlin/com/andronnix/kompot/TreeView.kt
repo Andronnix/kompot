@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun TreeView(items: List<TreeItem>) {
-    val checkedState = remember { items.mapIndexed { idx, _ -> (idx to true) }.toMutableStateMap() }
+    val expandedState = remember { items.mapIndexed { idx, _ -> (idx to true) }.toMutableStateMap() }
     val visibilityState = remember { items.mapIndexed { idx, _ -> (idx to true) }.toMutableStateMap() }
 
     Column {
@@ -20,13 +20,13 @@ fun TreeView(items: List<TreeItem>) {
 
             Row {
                 Spacer(Modifier.width((item.level * 30).dp).background(Color.Red))
-                TreeNode(item.content, checkedState[currentIdx]!!) { isChecked ->
-                    checkedState[currentIdx] = isChecked
+                TreeNode(item.content, expandedState[currentIdx]!!) { isExpandedNew ->
+                    expandedState[currentIdx] = isExpandedNew
 
                     val level = items[currentIdx].level
                     var childrenIdx = currentIdx + 1
                     while (childrenIdx < items.size && items[childrenIdx].level > level) {
-                        visibilityState[childrenIdx] = isChecked
+                        visibilityState[childrenIdx] = isExpandedNew
                         childrenIdx++
                     }
                 }
@@ -36,9 +36,9 @@ fun TreeView(items: List<TreeItem>) {
 }
 
 @Composable
-fun TreeNode(item: @Composable () -> Unit, checked: Boolean, onCheckboxToggle: (newValue: Boolean) -> Unit) {
+fun TreeNode(item: @Composable () -> Unit, expanded: Boolean, onExpandedChange: (newExpandedValue: Boolean) -> Unit) {
     Row {
-        Checkbox(checked, { onCheckboxToggle(!checked) })
+        Checkbox(expanded, { onExpandedChange(!expanded) })
         item()
     }
 }
