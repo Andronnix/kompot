@@ -32,14 +32,20 @@ kotlin {
     }
 
     jvm { }
-    @OptIn(ExperimentalWasmDsl::class)
-    wasmJs { browser() }
 
     sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation(compose.ui)
+                implementation(compose.foundation)
+                implementation(compose.material)
+                implementation(project(":component-library"))
+            }
+        }
+
         val jvmMain by getting  {
             dependencies {
                 implementation(compose.desktop.currentOs)
-                implementation(project(":component-library"))
             }
         }
 
@@ -50,7 +56,6 @@ kotlin {
                 api(compose.material)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 api(compose.components.resources)
-                implementation(project(":component-library"))
             }
         }
     }
